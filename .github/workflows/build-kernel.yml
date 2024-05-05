@@ -36,7 +36,7 @@ jobs:
           args="                  ARCH=arm64 \
                                   O=../out \
                                   ${{ env.BUILD_ARGS }} \
-                                  CROSS_COMPILE=aarch64-linux-gnu- 
+                                  CROSS_COMPILE=aarch64-linux-gnu-"
                                   
           cd kernel-source
           make ${args} ${{ env.KERNEL_CONFIG }}
