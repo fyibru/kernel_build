@@ -26,15 +26,7 @@ jobs:
 
       - name: Pull kernel source
         run: |
-          git clone --depth=1 ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} kernel-source
-
-      - name: Pull KernelSU
-        run: |
-          cd kernel-source
-          rm -rf ./KernelSU 
-          rm -rf drivers/kernelsu
-          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
-          cd ../
+          git clone --depth=1 --recursive ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} kernel-source
           
       - name: Build kernel
         run: |
