@@ -22,8 +22,7 @@ jobs:
       - name: Pull toolchain
         run: |
           sudo apt install bc flex cpio gcc-aarch64-linux-gnu -y
-          mkdir clang && wget https://github.com/ZyCromerZ/Clang/releases/download/19.0.0git-20240517-release/Clang-19.0.0git-20240517.tar.gz && tar -C clang/ -xf clang-*.tar.gz
-
+          mkdir clang && wget https://github.com/ZyCromerZ/Clang/releases/download/19.0.0git-20240517-release/Clang-19.0.0git-20240517.tar.gz && tar -C clang/ -xf Clang-19.0.0git-20240517.tar.gz
       - name: Pull kernel source
         run: |
           git clone --depth=1 --recursive ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} kernel-source
