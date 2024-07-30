@@ -16,7 +16,7 @@ jobs:
           echo "ANYKERNEL_SOURCE_BRANCH=$(cat config.env | grep -w "ANYKERNEL_SOURCE_BRANCH" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
           echo "KERNEL_SOURCE=$(cat config.env | grep -w "KERNEL_SOURCE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
           echo "KERNEL_SOURCE_BRANCH=$(cat config.env | grep -w "KERNEL_SOURCE_BRANCH" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
-          echo "KERNEL_CONFIG=$(cat config.env | grep -w "KERNEL_CONFIG" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+          echo "DEVICE_CONFIG1=$(cat config.env | grep -w "DEVICE_CONFIG1" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
           echo "BUILD_ARGS=$(cat config.env | grep -w "BUILD_ARGS" | head -n 1 | cut -d ":" -f 2)" >> $GITHUB_ENV
           echo "COUNT=$(cat count)" >> $GITHUB_ENV
 
@@ -62,7 +62,7 @@ jobs:
                                   CROSS_COMPILE=aarch64-linux-gnu-"
                                   
           cd kernel-source
-          make ${args} ${{ env.KERNEL_CONFIG }}
+          make ${args} asus/${{ env.DEVICE_CONFIG1 }}_defconfig
           make -j$(($(getconf _NPROCESSORS_ONLN) * 2)) ${args}     
       
       - name: Package kernel
@@ -84,5 +84,5 @@ jobs:
       - name: Upload kernel to artifact
         uses: actions/upload-artifact@v4
         with:
-          name: perf+_${{ env.COUNT }}
+          name: perf+_${{ env.DEVICE_CONFIG1 }}_TAG_${{ env.COUNT }}
           path: AnyKernel3/*
