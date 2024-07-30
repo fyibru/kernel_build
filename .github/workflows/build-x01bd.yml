@@ -19,10 +19,6 @@ jobs:
           echo "DEVICE_CONFIG1=$(cat config.env | grep -w "DEVICE_CONFIG1" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
           echo "BUILD_ARGS=$(cat config.env | grep -w "BUILD_ARGS" | head -n 1 | cut -d ":" -f 2)" >> $GITHUB_ENV
           echo "COUNT=$(cat count)" >> $GITHUB_ENV
-
-      - name: CPU Cfg
-        run: |
-          lscpu
           
       - name: Setting Up Toolchain
         run: |
@@ -44,7 +40,7 @@ jobs:
                                   
           cd kernel-source
           make ${args} asus/${{ env.DEVICE_CONFIG1 }}_defconfig
-          make -j$(($(getconf _NPROCESSORS_ONLN) * 2)) ${args}
+          make -j4 ${args}
           
       - name: Counting 
         run: |
