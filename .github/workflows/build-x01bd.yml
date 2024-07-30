@@ -19,7 +19,11 @@ jobs:
           echo "DEVICE_CONFIG1=$(cat config.env | grep -w "DEVICE_CONFIG1" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
           echo "BUILD_ARGS=$(cat config.env | grep -w "BUILD_ARGS" | head -n 1 | cut -d ":" -f 2)" >> $GITHUB_ENV
           echo "COUNT=$(cat count)" >> $GITHUB_ENV
-     
+
+      - name: CPU Cfg
+        run: |
+          lscpu
+          
       - name: Setting Up Toolchain
         run: |
           sudo apt install bc flex cpio gcc-aarch64-linux-gnu clang-15 -y
