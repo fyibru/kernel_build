@@ -20,6 +20,12 @@ jobs:
           echo "BUILD_ARGS=$(cat config.env | grep -w "BUILD_ARGS" | head -n 1 | cut -d ":" -f 2)" >> $GITHUB_ENV
           echo "COUNT=$(cat count)" >> $GITHUB_ENV
 
+      - name: Counting 
+        run: |
+          nilai1=${{ env.COUNT }}
+          sum=$((nilai1 + 1))
+          echo "new_count=${sum}" >> $GITHUB_ENV
+
       - name: Setting Up Toolchain
         run: |
           sudo apt install bc flex cpio gcc-aarch64-linux-gnu clang-15 -y
@@ -46,12 +52,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          
-      - name: Counting 
-        run: |
-          nilai1=${{ env.COUNT }}
-          sum=$((nilai1 + 1))
-          echo "new_count=${sum}" >> $GITHUB_ENV
 
       - name: Writing Changes
         run: |
