@@ -19,29 +19,6 @@ jobs:
           echo "DEVICE_CONFIG1=$(cat config.env | grep -w "DEVICE_CONFIG1" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
           echo "BUILD_ARGS=$(cat config.env | grep -w "BUILD_ARGS" | head -n 1 | cut -d ":" -f 2)" >> $GITHUB_ENV
           echo "COUNT=$(cat count)" >> $GITHUB_ENV
-
-      - name: Counting 
-        run: |
-          nilai1=${{ env.COUNT }}
-          sum=$((nilai1 + 1))
-          echo "new_count=${sum}" >> $GITHUB_ENV
-
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-      - name: Writing Changes
-        run: |
-          echo "${{ env.new_count }}" > count
-          git add count
-          git commit -m "counting"
-
-      - name: Push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git push origin master
      
       - name: Setting Up Toolchain
         run: |
@@ -63,7 +40,30 @@ jobs:
                                   
           cd kernel-source
           make ${args} asus/${{ env.DEVICE_CONFIG1 }}_defconfig
-          make -j$(($(getconf _NPROCESSORS_ONLN) * 2)) ${args}     
+          make -j$(($(getconf _NPROCESSORS_ONLN) * 2)) ${args}
+          
+      - name: Counting 
+        run: |
+          nilai1=${{ env.COUNT }}
+          sum=$((nilai1 + 1))
+          echo "new_count=${sum}" >> $GITHUB_ENV
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Writing Changes
+        run: |
+          echo "${{ env.new_count }}" > count
+          git add count
+          git commit -m "counting"
+
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin master     
       
       - name: Package kernel
         run: |
