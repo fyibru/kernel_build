@@ -40,7 +40,7 @@ jobs:
                                   
           cd kernel-source
           make ${args} asus/${{ env.DEVICE_CONFIG1 }}_defconfig
-          make -j4 ${args}
+          make -j$(nproc --all) ${args}
           
       - name: Counting 
         run: |
