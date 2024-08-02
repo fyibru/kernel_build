@@ -22,7 +22,7 @@ jobs:
           
       - name: Setting Up Toolchain
         run: |
-          sudo apt install bc flex cpio gcc-aarch64-linux-gnu clang-15 -y
+          sudo apt install bc flex cpio gcc-aarch64-linux-gnu clang-15 ccache -y
           
       - name: Pull kernel source
         run: |
