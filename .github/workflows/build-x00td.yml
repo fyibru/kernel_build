@@ -32,15 +32,18 @@ jobs:
         run: |
           export KBUILD_BUILD_USER="android"
           export KBUILD_BUILD_HOST="linux"
-          export PATH=$GITHUB_WORKSPACE/clang/bin:${PATH}
-          args="                  ARCH=arm64 \
-                                  O=../out \
-                                  ${{ env.BUILD_ARGS }} \
-                                  CROSS_COMPILE=aarch64-linux-gnu-"
-                                  
+          export PATH=$GITHUB_WORKSPACE/clang/bin:${PATH}                        
           cd kernel-source
-          make ${args} asus/${{ env.DEVICE_CONFIG2 }}_defconfig
-          make -j4 ${args}   
+          make -j4                          \
+                                  ARCH=arm64 \
+                                  O=../out \
+                                  CC="ccache clang-15" \
+                                  CROSS_COMPILE=aarch64-linux-gnu- asus/${{ env.DEVICE_CONFIG1 }}_defconfig
+          make -j4                          \
+                                  ARCH=arm64 \
+                                  O=../out \
+                                  CC="ccache clang-15" \
+                                  CROSS_COMPILE=aarch64-linux-gnu-
       
       - name: Package kernel
         run: |
