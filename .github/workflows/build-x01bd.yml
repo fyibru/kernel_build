@@ -23,7 +23,8 @@ jobs:
       - name: Setting Up Toolchain
         run: |
           sudo apt install bc flex cpio ccache gcc-aarch64-linux-gnu -y
-          wget https://dl.google.com/android/repository/android-ndk-r27-linux.zip && unzip android-ndk-r27-linux.zip 
+          wget https://dl.google.com/android/repository/android-ndk-r27-linux.zip && unzip android-ndk-r27-linux.zip
+          wget https://releases.linaro.org/components/toolchain/binaries/latest-7/aarch64-elf/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz && tar -xvf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz
           
       - name: Pull kernel source
         run: |
@@ -39,12 +40,12 @@ jobs:
                                   ARCH=arm64 \
                                   O=../out \
                                   CC=$(pwd)/../android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang \
-                                  CROSS_COMPILE=aarch64-linux-gnu- asus/${{ env.DEVICE_CONFIG1 }}_defconfig
+                                  CROSS_COMPILE=$(pwd)/../gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf- asus/${{ env.DEVICE_CONFIG1 }}_defconfig
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
                                   CC=$(pwd)/../android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang \
-                                  CROSS_COMPILE=aarch64-linux-gnu-
+                                  CROSS_COMPILE=$(pwd)/../gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-
           
       - name: Counting 
         run: |
