@@ -34,18 +34,24 @@ jobs:
         run: |
           export KBUILD_BUILD_USER="android"
           export KBUILD_BUILD_HOST="linux"
-          export PATH=$GITHUB_WORKSPACE/clang/bin:${PATH}
+          export PATH=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin:${PATH}
           cd kernel-source
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
-                                  CC=$(pwd)/../android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang \
-                                  CROSS_COMPILE=$(pwd)/../gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf- asus/${{ env.DEVICE_CONFIG1 }}_defconfig
+                                  CC=clang \
+                                  CC=clang LD=ld.lld AR=llvm-ar NM=llvm-nm STRIP=llvm-strip \
+                                  OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump READELF=llvm-readelf \
+                                  HOSTCC=clang HOSTCXX=clang++ HOSTAR=llvm-ar HOSTLD=ld.lld \
+                                  CROSS_COMPILE=aarch64-linux-gnu- asus/${{ env.DEVICE_CONFIG1 }}_defconfig
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
-                                  CC=$(pwd)/../android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang \
-                                  CROSS_COMPILE=$(pwd)/../gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-
+                                  CC=clang \
+                                  CC=clang LD=ld.lld AR=llvm-ar NM=llvm-nm STRIP=llvm-strip \
+                                  OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump READELF=llvm-readelf \
+                                  HOSTCC=clang HOSTCXX=clang++ HOSTAR=llvm-ar HOSTLD=ld.lld \
+                                  CROSS_COMPILE=aarch64-linux-gnu-
           
       - name: Counting 
         run: |
