@@ -29,12 +29,16 @@ jobs:
       - name: Pull kernel source
         run: |
           git clone --depth=1 --recursive ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} kernel-source
+
+      - name: Check Clang version
+        run: | 
+          export PATH=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin:${PATH}
+          echo "$(clang --version)"
           
       - name: Build kernel
         run: |
           export KBUILD_BUILD_USER="android"
           export KBUILD_BUILD_HOST="linux"
-          export PATH=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin:${PATH}
           cd kernel-source
           make -j4                          \
                                   ARCH=arm64 \
