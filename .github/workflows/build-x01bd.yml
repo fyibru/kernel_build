@@ -43,11 +43,11 @@ jobs:
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
-                                  CROSS_COMPILE="ccache aarch64-linux-gnu-" asus/${{ env.DEVICE_CONFIG1 }}_defconfig
+                                  CROSS_COMPILE="aarch64-linux-gnu-" asus/${{ env.DEVICE_CONFIG1 }}_defconfig
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
-                                  CROSS_COMPILE="ccache aarch64-linux-gnu-"
+                                  CROSS_COMPILE="aarch64-linux-gnu-"
           
       - name: Counting 
         run: |
