@@ -43,10 +43,12 @@ jobs:
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
+                                  CC=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang \
                                   CROSS_COMPILE="aarch64-linux-gnu-" asus/${{ env.DEVICE_CONFIG1 }}_defconfig
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
+                                  CC=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang \
                                   CROSS_COMPILE="aarch64-linux-gnu-"
           
       - name: Counting 
