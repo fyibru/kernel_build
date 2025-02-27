@@ -23,8 +23,10 @@ jobs:
       - name: Setting Up Toolchain
         run: |
           sudo apt install bc flex cpio ccache gcc-aarch64-linux-gnu -y
-          wget https://dl.google.com/android/repository/android-ndk-r27-linux.zip && unzip android-ndk-r27-linux.zip
-          wget https://releases.linaro.org/components/toolchain/binaries/latest-7/aarch64-elf/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz && tar -xvf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz
+          mkdir clang && cd clang
+          wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android-msm-redbull-4.19-android13/clang-r416183b.tar.gz
+          tar -xf clang-r416183b.tar.gz
+          cd $GITHUB_WORKSPACE
           
       - name: Pull kernel source
         run: |
@@ -32,7 +34,7 @@ jobs:
 
       - name: Check Clang version
         run: | 
-          export PATH=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin:${PATH}
+          export PATH=$GITHUB_WORKSPACE/clang/bin:${PATH}
           echo "$(clang --version)"
           
       - name: Build kernel
@@ -43,10 +45,12 @@ jobs:
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
+                                  CC=$GITHUB_WORKSPACE/clang/bin/clang \
                                   CROSS_COMPILE="aarch64-linux-gnu-" asus/${{ env.DEVICE_CONFIG1 }}_defconfig
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
+                                  CC=$GITHUB_WORKSPACE/clang/bin/clang \
                                   CROSS_COMPILE="aarch64-linux-gnu-"
           
       - name: Counting 
