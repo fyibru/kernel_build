@@ -43,18 +43,10 @@ jobs:
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
-                                  CC=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang \
-                                  LD=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/ld.lld AR=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar NM=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-nm STRIP=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip \
-                                  OBJCOPY=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-objcopy OBJDUMP=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-objdump READELF=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-readelf \
-                                  HOSTCC=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang HOSTCXX=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ HOSTAR=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar HOSTLD=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/ld.lld \
                                   CROSS_COMPILE="aarch64-linux-gnu-" asus/${{ env.DEVICE_CONFIG1 }}_defconfig
           make -j4                          \
                                   ARCH=arm64 \
                                   O=../out \
-                                  CC=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang \
-                                  LD=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/ld.lld AR=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar NM=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-nm STRIP=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip \
-                                  OBJCOPY=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-objcopy OBJDUMP=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-objdump READELF=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-readelf \
-                                  HOSTCC=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang HOSTCXX=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ HOSTAR=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar HOSTLD=$GITHUB_WORKSPACE/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/ld.lld \
                                   CROSS_COMPILE="aarch64-linux-gnu-"
           
       - name: Counting 
